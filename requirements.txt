@@ -1,0 +1,7 @@
+Flask
+flask-cors
+pydantic
+python-dotenv
+bleach
+pandas
+xgboost
