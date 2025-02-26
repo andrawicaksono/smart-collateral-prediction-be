@@ -7,6 +7,18 @@ from .config import Config
 
 main_blueprint = Blueprint("main", __name__)
 
+@main_blueprint.route("/check", methods=["GET"])
+def checkHealth():
+    try:
+        return jsonify({
+            "success": True,
+            "message": "OK"
+        })
+    
+    except Exception as e:
+      logging.error(f"Prediction error: {str(e)}")
+      return jsonify({"error": "Internal server error"}), 500
+
 class InputData(BaseModel):
     city: str
     latitude: float
