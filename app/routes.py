@@ -13,12 +13,12 @@ class InputData(BaseModel):
     longitude: float
     land_size: int
     building_size: int
-    floor: int
+    floors: int
     electricity: int
     certificate: str
     property_condition: int
-    bedroom: int
-    bathroom: int
+    bedrooms: int
+    bathrooms: int
     swimming_pool: int
     garage: int
     carport: int
