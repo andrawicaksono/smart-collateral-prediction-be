@@ -30,16 +30,16 @@ class InputData(BaseModel):
 @main_blueprint.route("/predict", methods=["POST"])
 def predict():
     try:
-        # provided_api_key = request.headers.get("X-API-KEY")
-        # provided_timestamp = request.headers.get("X-TIMESTAMP")
-        # provided_signature = request.headers.get("X-SIGNATURE")
+        provided_api_key = request.headers.get("X-API-KEY")
+        provided_timestamp = request.headers.get("X-TIMESTAMP")
+        provided_signature = request.headers.get("X-SIGNATURE")
 
-        # if provided_api_key != Config.API_KEY:
-        #     return jsonify({"error": "Unauthorized"}), 403
+        if provided_api_key != Config.API_KEY:
+            return jsonify({"error": "Unauthorized"}), 403
 
-        # raw_data = request.get_data(as_text=True)
-        # if not verify_hmac_signature(provided_api_key, provided_timestamp, raw_data, provided_signature):
-        #     return jsonify({"error": "Invalid credentials"}), 403
+        raw_data = request.get_data(as_text=True)
+        if not verify_hmac_signature(provided_api_key, provided_timestamp, raw_data, provided_signature):
+            return jsonify({"error": "Invalid credentials"}), 403
 
         json_data = request.get_json()
         sanitized_data = sanitize_input(json_data)

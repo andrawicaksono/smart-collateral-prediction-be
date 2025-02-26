@@ -15,7 +15,7 @@ def sanitize_input(data):
 
 def generate_hmac_signature(api_key, timestamp, payload):
     """Generate HMAC SHA256 signature."""
-    message = f"{api_key}{timestamp}{payload}".encode()
+    message = f"{api_key}:{timestamp}:{payload}".encode()
     return hmac.new(Config.SECRET_KEY.encode(), message, hashlib.sha256).hexdigest()
 
 def verify_hmac_signature(api_key, timestamp, payload, provided_signature):
