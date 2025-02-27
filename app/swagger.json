@@ -1,0 +1,181 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Smart Collateral Prediction API",
+    "description": "API for predicting property prices based on various features.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api/v1",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/check": {
+      "get": {
+        "summary": "Check API Health",
+        "description": "Returns the health status of the API.",
+        "responses": {
+          "200": {
+            "description": "API is running.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/predict": {
+      "post": {
+        "summary": "Predict Property Price",
+        "description": "Predicts the price of a property based on input features.",
+        "parameters": [
+          {
+            "name": "X-API-KEY",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "X-TIMESTAMP",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "X-SIGNATURE",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InputData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Prediction successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "message": { "type": "string" },
+                    "data": { "type": "number" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" },
+                    "details": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized or Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InputData": {
+        "type": "object",
+        "properties": {
+          "city": { "type": "string" },
+          "latitude": { "type": "number" },
+          "longitude": { "type": "number" },
+          "land_size": { "type": "integer" },
+          "building_size": { "type": "integer" },
+          "floors": { "type": "integer" },
+          "electricity": { "type": "integer" },
+          "certificate": { "type": "string" },
+          "property_condition": { "type": "integer" },
+          "bedrooms": { "type": "integer" },
+          "bathrooms": { "type": "integer" },
+          "swimming_pool": { "type": "integer" },
+          "garage": { "type": "integer" },
+          "carport": { "type": "integer" },
+          "garden": { "type": "integer" },
+          "drying_area": { "type": "integer" },
+          "security": { "type": "integer" },
+          "parking_access": { "type": "integer" }
+        },
+        "required": [
+          "city",
+          "latitude",
+          "longitude",
+          "land_size",
+          "building_size",
+          "floors",
+          "electricity",
+          "certificate",
+          "property_condition",
+          "bedrooms",
+          "bathrooms",
+          "swimming_pool",
+          "garage",
+          "carport",
+          "garden",
+          "drying_area",
+          "security",
+          "parking_access"
+        ]
+      }
+    }
+  }
+}

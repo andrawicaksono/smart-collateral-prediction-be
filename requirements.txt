@@ -1,5 +1,6 @@
 Flask
 flask-cors
+flask-swagger-ui
 pydantic
 python-dotenv
 bleach
