@@ -162,8 +162,8 @@ PORT=5000
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/smart-collateral-prediction-api.git
-cd smart-collateral-prediction-api
+git clone https://github.com/andrawicaksono/smart-collateral-prediction-be.git
+cd smart-collateral-prediction-be
 ```
 
 2. Install dependencies:
